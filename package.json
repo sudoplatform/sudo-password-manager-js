@@ -1,0 +1,92 @@
+{
+  "name": "@sudoplatform/sudo-password-manager",
+  "version": "0.0.0",
+  "author": "Anonyome Labs, Inc.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sudoplatform/sudo-password-manager-js.git"
+  },
+  "scripts": {
+    "lint": "npm-run-all --parallel lint:eslint lint:prettier",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier -l .",
+    "test": "jest",
+    "build": "npm-run-all build:schema --parallel build:verify build:transpile build:declarations build:docs",
+    "build:verify": "yarn audit && yarn lint && yarn test --coverage",
+    "build:schema": "mkdir -p ./src/gen && quicktype -s schema ./node_modules/@sudoplatform/sudo-password-manager-schema/schema/schema.json -o ./src/gen/schema-types.ts -t VaultSchema --no-date-times --just-types && prettier --write ./src/gen/schema-types.ts",
+    "build:transpile": "babel src --out-dir lib --extensions '.ts'",
+    "build:declarations": "tsc --emitDeclarationOnly",
+    "build:docs": "typedoc --mode library --excludePrivate --ignoreCompilerErrors --out docs src/index.ts"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "docs"
+  ],
+  "browser": {
+    "./lib/runtimes/node/node-base64.js": "./lib/runtimes/browser/browser-base64.js",
+    "./lib/runtimes/node/node-secure-random-number.js": "./lib/runtimes/browser/browser-secure-random-number.js",
+    "./lib/runtimes/node/node-local-secure-vault-service-crypto.js": "./lib/runtimes/browser/browser-local-secure-vault-service-crypto.js",
+    "./lib/runtimes/node/node-password-manager-crypto.js": "./lib/runtimes/browser/browser-password-manager-crypto.js"
+  },
+  "resolutions": {
+    "**/@mark.probst/typescript-json-schema/yargs/yargs-parser": "^19.0.1",
+    "node-fetch": "^2.6.1"
+  },
+  "dependencies": {
+    "@sudoplatform/sudo-secure-vault": "^2.0.1",
+    "asn1js": "^2.0.26",
+    "aws-sdk": "^2.721.0",
+    "fp-ts": "^2.7.1",
+    "io-ts": "^2.2.9",
+    "node-localstorage": "^2.1.6",
+    "pdf-lib": "^1.10.0",
+    "uuid": "^8.3.0",
+    "zxcvbn": "^4.4.2"
+  },
+  "peerDependencies": {
+    "@sudoplatform/sudo-api-client": "^1.0.0",
+    "@sudoplatform/sudo-common": "^2.0.1",
+    "@sudoplatform/sudo-entitlements": "^1.0.1",
+    "@sudoplatform/sudo-profiles": "^1.0.0",
+    "@sudoplatform/sudo-user": "^1.0.11"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-numeric-separator": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/plugin-proposal-private-methods": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
+    "@sudoplatform/sudo-api-client": "^1.0.0",
+    "@sudoplatform/sudo-common": "^2.0.1",
+    "@sudoplatform/sudo-entitlements": "^1.0.1",
+    "@sudoplatform/sudo-password-manager-schema": "5.0.1",
+    "@sudoplatform/sudo-profiles": "^1.0.0",
+    "@sudoplatform/sudo-user": "^1.0.11",
+    "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.26",
+    "@types/node-localstorage": "^1.3.0",
+    "@types/pdfjs-dist": "^2.1.5",
+    "@types/uuid": "^8.3.0",
+    "@types/zxcvbn": "^4.4.0",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "@typescript-eslint/parser": "^3.7.1",
+    "eslint": "^7.5.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "fake-indexeddb": "^3.1.2",
+    "jest": "^26.1.0",
+    "npm-run-all": "^4.1.5",
+    "pdfjs-dist": "^2.4.456",
+    "prettier": "^2.0.5",
+    "typedoc": "0.17.0-3",
+    "typescript": "^3.9.7"
+  }
+}

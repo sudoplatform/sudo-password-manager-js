@@ -1,0 +1,8 @@
+.cache
+config
+docs
+lib
+node_modules
+yarn-error.log
+build
+src/gen
