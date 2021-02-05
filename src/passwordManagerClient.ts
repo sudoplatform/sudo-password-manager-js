@@ -19,6 +19,7 @@ import {
   Login,
   SecureFieldName,
   EntitlementState,
+  Entitlement,
 } from './types'
 import { SessionEncryptedVaultCredentials } from './runtimes/types'
 import { VaultNotUnlockedError, VaultSecretCodeNotFoundError } from './errors'
@@ -62,6 +63,7 @@ import {
   PasswordManagerVaultFormat,
   schemaVaultToBlob,
 } from './vaultBlob'
+import { getEntitlement } from './getEntitlement'
 
 /** Cache configuration parameters for PasswordManagerClient. */
 interface CachingClientConfig {
@@ -678,5 +680,9 @@ export class PasswordManagerClient {
    */
   public getEntitlementState(): Promise<EntitlementState[]> {
     return getEntitlementState.call(this)
+  }
+
+  public getEntitlement(): Promise<Entitlement[]> {
+    return getEntitlement.call(this)
   }
 }

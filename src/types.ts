@@ -142,6 +142,14 @@ export interface BankAccount {
 }
 
 /**
+ * Entitlement item type
+ */
+export interface Entitlement {
+  name: EntitlementName
+  limit: number
+}
+
+/**
  * Entitlement State type
  */
 export interface EntitlementState {
@@ -152,6 +160,6 @@ export interface EntitlementState {
 }
 
 /**
- * Entitlement State name types
+ * Entitlement names
  */
 export type EntitlementName = 'vaultMaxPerSudo'
